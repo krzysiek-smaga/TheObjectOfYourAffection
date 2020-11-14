@@ -17,20 +17,53 @@ namespace TheObjectOfYourAffection
         private string[] hobbies;
 
         // Constructors
-        public Profile(string name, int age, string city, string country, string pronouns = "they/them")
+        public Profile(string name, int age, string city = "Unknown", string country = "Unknown", string pronouns = "they/them")
         {
             this.name = name;
-            this.age = age;
+            this.Age = age;
             this.city = city;
             this.country = country;
             this.pronouns = pronouns;
-            this.hobbies = new String[10];
+            this.hobbies = new String[0];
+        }
+
+        // Properties
+        private int Age
+        {
+            get { return this.age; }
+            set
+            {
+                if (value < 18)
+                {
+                    Console.WriteLine("You must be at least 18 years old!");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    this.age = value;
+                }
+            }
         }
 
         // Methods
         public string ViewProfile()
         {
-            return $"Name: {name} \nAge: {age} \nCity: {city} \nCountry: {country}";
+            string profileCard = $"Name: {this.name} \nAge: {this.Age} \nCity: {this.city} \nCountry: {this.country}";
+            if (this.hobbies.Length > 0)
+            {
+                profileCard += " \nHobbies:";
+                foreach (string hobby in this.hobbies)
+                {
+                    profileCard += $" {hobby} \n";
+                }
+            }
+            
+            return profileCard;
+        }
+
+        public void SetHobbies(string[] hobbies)
+        {
+            this.hobbies = hobbies;
         }
 
     }
